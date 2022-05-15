@@ -1,5 +1,6 @@
-function BlockInfo () {
-    return <h1>Block Info</h1>;
+function BlockInfo (props) {
+    let block = props.block;
+    return <li className="list-group-item">Block {block.number}</li>;
 }
 
 export default BlockInfo;
