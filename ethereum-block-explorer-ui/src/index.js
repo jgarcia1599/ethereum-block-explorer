@@ -2,9 +2,16 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
+import {toJS} from "mobx";
+
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import model from './utils/model';
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+window.toJS = toJS;
+window.model = model;
+
 root.render(
   <React.StrictMode>
     <App />

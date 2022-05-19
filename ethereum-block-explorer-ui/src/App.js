@@ -1,11 +1,13 @@
 import "./App.css";
-import BlockInfo from "./components/BlockInfo";
-import BlockExplorerList from "./components/BlockExplorerList";
 import { getLatestBlockNumber, getLatestBlockWithTransactions } from "./utils";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useEffect, useState } from "react";
 
+import model from "./utils/model";
+import BlockListExplorer from "./components/BlockListExplorer";
+import BlockInfoDisplay from "./components/BlockInfoDisplay";
+
 function App() {
-  let [numBlock, setBlockNum] = useState(10);
   let [blocksToDisplay, setBlocksToDisplay] = useState(null);
 
   let getLatestBlocks = async (numBlock) => {
@@ -20,55 +22,29 @@ function App() {
   };
 
   useEffect(() => {
-    getLatestBlocks(numBlock);
-  }, [numBlock]);
+    getLatestBlocks(model.numBlock);
+  });
 
   return (
+    <BrowserRouter>
     <div className="App">
-      <div class="jumbotron">
+      <div class="jumbotron text-center">
         <div class="container">
           <h1 class="display-4">Ethereum Block Explorer</h1>
           <p class="lead">
-            A simple Interface to explore blocks on the Ethereum Blockchain.
+            A simple interface to explore blocks on the Ethereum Blockchain.
           </p>
         </div>
       </div>
-      <BlockExplorerList>
-        <form className="block-list-manager">
-          <div class="row">
-            <div class="col">
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Ethereum Mainnet"
-                aria-label="Network Name"
-                disabled
-              />
-            </div>
-            <div class="col">
-              <input
-                type="number"
-                className="form-control"
-                min={0}
-                placeholder={numBlock}
-                aria-label="Last name"
-                onChange={(e) => {
-                  if (!e.target.value) {
-                    return;
-                  }
-                  setBlockNum(e.target.value);
-                }}
-              />
-            </div>
-          </div>
-        </form>
-        {blocksToDisplay ? (
-          blocksToDisplay.map((block) => <BlockInfo block={block} />)
-        ) : (
-          <p>Loading Ethereum Block Info...</p>
-        )}
-      </BlockExplorerList>
+      <Routes>
+        <Route
+          path="/"
+          element={<BlockListExplorer blocksToDisplay={blocksToDisplay} />}
+        />
+        <Route path="block/:blockNumber" element={<BlockInfoDisplay />} />
+      </Routes>
     </div>
+    </BrowserRouter>
   );
 }
 
