@@ -1,5 +1,5 @@
 import "./App.css";
-import { getLatestBlockNumber, getLatestBlockWithTransactions } from "./utils";
+import { getLatestBlockNumber , geBlock} from "./utils";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useEffect, useState } from "react";
 
@@ -15,7 +15,7 @@ function App() {
     let blocks = [];
     for (let i = 0; i < numBlock; i++) {
       let blockNumber = latestBlockNumber - i;
-      let blockObject = await getLatestBlockWithTransactions(blockNumber);
+      let blockObject = await geBlock(blockNumber);
       blocks.push(blockObject);
     }
     setBlocksToDisplay(blocks);

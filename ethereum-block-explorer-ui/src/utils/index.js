@@ -11,6 +11,9 @@ export async function getLatestBlockNumber(){
     return await provider.getBlockNumber()
 }
 
-export const getLatestBlockWithTransactions = async (blockNumber) =>{
+export const getBlockWithTransactions = async (blockNumber) =>{
     return  await provider.getBlockWithTransactions(blockNumber);
+}
+export const geBlock = async (blockNumber) =>{
+    return  await provider.getBlock(blockNumber);
 }
